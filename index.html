@@ -2,133 +2,17 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="icon/iconfont.css">
-    <style>
-    #back{
-        display: none;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,.9);
-    }
-    </style>
-    <script src="xback.js"></script>
+    <meta name="viewport" content="width=device-width">
+    <script type="text/javascript">
+        var count = 0 ;
+        window.history.pushState(null, null, "#");
+        window.addEventListener("popstate", function(e) {
+            window.history.pushState(null, null, "#");
+            document.getElementById('logView').innerHTML = "用户点击返回" + (++count)
+        })
+    </script>
 </head>
 <body>
-<div class="box">
-    <table>
-        <tr>
-            <th>推广计划名称1111111111111111111</th>
-            <th id="th1" onclick="SortTable(this)" class="as">点击量<span class="iconfont icon-jiantou_qiehuanxiangshang"></span></th>
-            <th id="th2" class="as">曝光量</th>
-            <th id="th3" class="as">消耗(元)</th>
-        </tr>
-        <tr>
-            <td name="td0">JXR-7.31专属弹窗计划555</td>
-            <td name="td1">17</td>
-            <td name="td2">24</td>
-            <td name="td3">13</td>
-        </tr>
-        <tr>
-            <td name="td0">激励验证计划11</td>
-            <td name="td1">15</td>
-            <td name="td2">22</td>
-            <td name="td3">16</td>
-        </tr>
-        <tr>
-            <td name="td0">有道广告计划33</td>
-            <td name="td1">14</td>
-            <td name="td2">15</td>
-            <td name="td3">20</td>
-        </tr>
-        <tr>
-            <td name="td0">代理返点计划222</td>
-            <td name="td1">13</td>
-            <td name="td2">14</td>
-            <td name="td3">14</td>
-        </tr>
-    </table>
-    <div id="back"></div>
-</div>
-
+<p id="logView">test</p>
 </body>
 </html>
-
-<script type="text/javascript">
-
-    XBack.listen(function(){
-        alert('ah, press press press');
-        document.getElementById("back").style.display="block";//显示
-    });
-    var tag=1;
-    function sortNumberAS(a, b)//升序
-    {
-        return a - b
-    }
-    function sortNumberDesc(a, b)//降序
-    {
-        return b-a
-    }
-
-    function SortTable(obj){
-        var td0s=document.getElementsByName("td0");//得到id为td0的一串列表，下相同
-        var td1s=document.getElementsByName("td1");
-        var td2s=document.getElementsByName("td2");
-        var td3s=document.getElementsByName("td3");
-        var tdArray0=[];
-        var tdArray1=[];
-        var tdArray2=[];
-        var tdArray3=[];
-        for(var i=0;i<td0s.length;i++){
-            tdArray0.push(td0s[i].innerHTML);
-        }//每串都写到数组中
-        for(var i=0;i<td1s.length;i++){
-            tdArray1.push(parseInt(td1s[i].innerHTML));
-        }
-        for(var i=0;i<td2s.length;i++){
-            tdArray2.push(parseInt(td2s[i].innerHTML));
-        }
-        for(var i=0;i<td3s.length;i++){
-            tdArray3.push(parseInt(td3s[i].innerHTML));
-        }
-        var tds = document.getElementsByName("td" + obj.id.substr(2, 1));
-        //得到当前传入对象的那一列
-        var columnArray=[];
-        for(var i=0;i<tds.length;i++){
-            columnArray.push(parseInt(tds[i].innerHTML));
-        }//当前那一列都写入column这个栈，是逆序的
-        var orginArray=[];
-        for(var i=0;i<columnArray.length;i++){
-            orginArray.push(columnArray[i]);
-        }//将这一列的内容再存储一遍，一会原来列表修改以后，
-        //通过比对值的方式对应到当前行的内容，实现同行内容一起修改
-        if(obj.className=="as"){
-            columnArray.sort(sortNumberAS);   //排序后的新值，只排序了当前列
-            obj.className="desc";
-            obj.children[0].className = "iconfont icon-jiantou_qiehuanxiangxia"
-        }else{
-            columnArray.sort(sortNumberDesc);  //排序后的新值
-            obj.className="as";
-            obj.children[0].className = "iconfont icon-jiantou_qiehuanxiangshang"
-
-        }
-
-
-        for(var i=0;i<columnArray.length;i++){
-            for(var j=0;j<orginArray.length;j++){
-                if(orginArray[j]==columnArray[i]){
-                    document.getElementsByName("td0")[i].innerHTML=tdArray0[j];
-                    document.getElementsByName("td1")[i].innerHTML=tdArray1[j];
-                    document.getElementsByName("td2")[i].innerHTML=tdArray2[j];
-                    document.getElementsByName("td3")[i].innerHTML=tdArray3[j];
-                    orginArray[j]=null;
-                    break;
-                }
-            }
-        }
-    }
-</script>
-
-
