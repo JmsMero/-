@@ -7,17 +7,31 @@
 
     </style>
     <script language="javascript">
-        (function(window, location) {
-            history.replaceState(null, document.title, location.pathname+"#!/stealingyourhistory");
-            history.pushState(null, document.title, location.pathname);
-            window.addEventListener("popstate", function() {
-                if(location.hash === "#!/stealingyourhistory") {
-                    history.replaceState(null, document.title, location.pathname);
-                    setTimeout(function(){
-                        alert("点击后退弹出此提示！")
-                    },0);
-                }
-            }, false);  }(window, location));
+        var detectBack = {
+
+            initialize: function() {
+                console.log('stat2e', window.addEventListener)
+                //监听hashchange事件
+                window.addEventListener('hashchange', function() {
+                    console.log(111)
+                    //为当前导航页附加一个tag
+                    this.history.replaceState('hasHash', '', '');
+
+                }, false);
+
+                history.pushState(1, '', '')
+                window.onpopstate = function(e) {
+                    console.log(e, e.state)
+                    if (!e.state) {
+                        //侦测是用户触发的后退操作, dosomething
+                        //这里刷新当前url
+                        window.location.reload();
+                    }
+                };
+            }
+        }
+
+        detectBack.initialize();
     </script>
 </head>
 <body>
