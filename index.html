@@ -6,32 +6,15 @@
     <style>
 
     </style>
-    <script language="javascript">
-        var detectBack = {
+    <script src="xback.js"></script>
+    <script>
+        XBack.listen(function(){
+            alert('oh! you press the back button');
+        });
 
-            initialize: function() {
-                console.log('stat2e', window.addEventListener)
-                //监听hashchange事件
-                window.addEventListener('hashchange', function() {
-                    console.log(111)
-                    //为当前导航页附加一个tag
-                    this.history.replaceState('hasHash', '', '');
-
-                }, false);
-
-                history.pushState(1, '', '')
-                window.onpopstate = function(e) {
-                    console.log(e, e.state)
-                    if (!e.state) {
-                        //侦测是用户触发的后退操作, dosomething
-                        //这里刷新当前url
-                        window.location.reload();
-                    }
-                };
-            }
-        }
-
-        detectBack.initialize();
+        XBack.listen(function(){
+            alert('ah, press press press');
+        });
     </script>
 </head>
 <body>
