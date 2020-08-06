@@ -3,44 +3,69 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <script type="text/javascript">
-        (function (global) {
+<!--    <script type="text/javascript">-->
+<!--        (function (global) {-->
 
-            if(typeof (global) === "undefined") {
-                throw new Error("window is undefined");
-            }
+<!--            if(typeof (global) === "undefined") {-->
+<!--                throw new Error("window is undefined");-->
+<!--            }-->
 
-            var _hash = "!";
-            var noBackPlease = function () {
-                global.location.href += "#";
+<!--            var _hash = "!";-->
+<!--            var noBackPlease = function () {-->
+<!--                global.location.href += "#";-->
 
-                // making sure we have the fruit available for juice (^__^)
-                global.setTimeout(function () {
-                    global.location.href += "!";
-                }, 50);
-            };
+<!--                // making sure we have the fruit available for juice (^__^)-->
+<!--                global.setTimeout(function () {-->
+<!--                    global.location.href += "!";-->
+<!--                }, 50);-->
+<!--            };-->
 
-            global.onhashchange = function () {
-                if (global.location.hash !== _hash) {
-                    global.location.hash = _hash;
-                }
-            };
+<!--            global.onhashchange = function () {-->
+<!--                if (global.location.hash !== _hash) {-->
+<!--                    global.location.hash = _hash;-->
+<!--                }-->
+<!--            };-->
 
-            global.onload = function () {
-                noBackPlease();
+<!--            global.onload = function () {-->
+<!--                noBackPlease();-->
 
-                // disables backspace on page except on input fields and textarea..
-                document.body.onkeydown = function (e) {
-                    var elm = e.target.nodeName.toLowerCase();
-                    if (e.which === 8 && (elm !== 'input' && elm  !== 'textarea')) {
-                        e.preventDefault();
-                    }
-                    // stopping event bubbling up the DOM tree..
-                    e.stopPropagation();
+<!--                // disables backspace on page except on input fields and textarea..-->
+<!--                document.body.onkeydown = function (e) {-->
+<!--                    var elm = e.target.nodeName.toLowerCase();-->
+<!--                    if (e.which === 8 && (elm !== 'input' && elm  !== 'textarea')) {-->
+<!--                        e.preventDefault();-->
+<!--                    }-->
+<!--                    // stopping event bubbling up the DOM tree..-->
+<!--                    e.stopPropagation();-->
+<!--                };-->
+<!--            }-->
+
+<!--        })(window);-->
+<!--    </script>-->
+    <script>
+        addEventBack();
+
+        function addEventBack(){
+            pushHistory();
+            window.addEventListener("popstate",addBackKey, false);
+            function pushHistory() {
+                var state = {
+                    title: "title",
+                    url: "#"
                 };
+                window.history.pushState(state, "title", "#jjjj");
             }
+        }
 
-        })(window);
+        function addBackKey(){
+            var res = confirm("是否确认离开当前页面？");
+            if (res == true) {
+                window.location.href="/aaa.html";
+            }else{
+                addEventBack();
+                history.pushState(state, null, location.href);
+            }
+        }
     </script>
 </head>
 <body>
