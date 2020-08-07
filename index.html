@@ -67,6 +67,11 @@
 <!--            }-->
 <!--        }-->
 <!--    </script>-->
+    <style>
+        #Popup{
+            display: none;
+        }
+    </style>
     <script>
         /**
          * 使用 HTML5 的 History 新 API pushState 来曲线监听 Android 设备的返回按钮
@@ -99,11 +104,20 @@
             }.call(window[pkg] = window[pkg] || {});
         }('XBack');
         XBack.listen(function(){
-            alert('back');
-        });
+            let popup =document.getElementById('Popup');
+            popup.style.display = 'block'
+        })
     </script>
 </head>
 <body>
 <p id="logView">test</p>
+<div id="Popup">
+    <p>真的要离开吗？</p>
+    <div>
+        <button class="determine">确定</button>
+        <button class="cancel">取消</button>
+    </div>
+</div>
+<div id="popup-back"></div>
 </body>
 </html>
