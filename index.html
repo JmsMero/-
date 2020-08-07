@@ -76,17 +76,17 @@
     <script>
         // 監聽Android物理返回鍵，自定義處理方法
         window.AndroidBack.listen(() => {
-            console.log('back');
+            alert('back');
         });
         // 新增Android物理返回鍵監聽事件，使用場景，比如：頁面內彈出浮層，點擊Android物理返回鍵，不是回退頁面，而是關閉浮層
         window.AndroidBack.push('close_modal', () => {
         // 關閉彈窗
-            console.log('close_modal');
+            alert('close_modal');
         });
     </script>
 </head>
 <body>
-<p id="logView">test</p>
+<p id="logView">test1</p>
 <div id="Popup">
     <p>真的要离开吗？</p>
     <div>
