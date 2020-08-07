@@ -72,41 +72,17 @@
             display: none;
         }
     </style>
+    <script src="./index.js"></script>
     <script>
-        /**
-         * 使用 HTML5 的 History 新 API pushState 来曲线监听 Android 设备的返回按钮
-         * XBack.listen(function(){
-            alert('oh! you press the back button');
-            });
-         */
-        ;!function(pkg, undefined){
-            var STATE = 'x-back';
-            var element;
-            var onPopState = function(event){
-                event.state === STATE && fire();
-            }
-            var record = function(state){
-                history.pushState(state, null, location.href);
-            }
-            var fire = function(){
-                var event = document.createEvent('Events');
-                event.initEvent(STATE, false, false);
-                element.dispatchEvent(event);
-            }
-            var listen = function(listener){
-                    element.addEventListener(STATE, listener, false);
-                }
-            ;!function(){
-                element = document.createElement('span');
-                window.addEventListener('popstate', onPopState);
-                this.listen = listen;
-                record(STATE);
-            }.call(window[pkg] = window[pkg] || {});
-        }('XBack');
-        XBack.listen(function(){
-            let popup =document.getElementById('Popup');
-            popup.style.display = 'block'
-        })
+        // 監聽Android物理返回鍵，自定義處理方法
+        window.AndroidBack.listen(() => {
+            console.log('back');
+        });
+        // 新增Android物理返回鍵監聽事件，使用場景，比如：頁面內彈出浮層，點擊Android物理返回鍵，不是回退頁面，而是關閉浮層
+        window.AndroidBack.push('close_modal', () => {
+        // 關閉彈窗
+            console.log('close_modal');
+        });
     </script>
 </head>
 <body>
